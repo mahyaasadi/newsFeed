@@ -1,0 +1,1 @@
+export { newsFeedSlice } from "./newsFeedSlice";
