@@ -1,10 +1,9 @@
+import styles from "@/app/components/shared/loader.module.scss";
+
 const Loader = () => {
   return (
-    <div className="container">
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
+    <div className={styles.loaderWrapper}>
+      <div className={styles.loader}></div>;
     </div>
   );
 };
