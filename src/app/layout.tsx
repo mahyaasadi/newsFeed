@@ -1,9 +1,6 @@
 "use client";
 import store from "@/store/store";
 import { Provider } from "react-redux";
-import { QueryClient, QueryClientProvider } from "react-query";
-
-const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -12,12 +9,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="">
-        <Provider store={store}>
-          <QueryClientProvider client={queryClient}>
-            {children}
-          </QueryClientProvider>
-        </Provider>
+      <body>
+        <Provider store={store}>{children}</Provider>
       </body>
     </html>
   );

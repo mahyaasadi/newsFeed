@@ -1,22 +1,30 @@
 "use client";
-import { useArticlesGetAllQuery } from "@/store/api/slices/newsFeedSlice";
+
+import {
+  useArticlesGetAllQuery,
+  useTopHeadlinesGetAllQuery,
+} from "@/store/api/slices/newsFeedSlice";
+import ArticleCard from "@/app/components/newsArticles/ArticleCard";
 
 const NewsFeed = () => {
   // Fetching data
   const {
     data: articles,
-    // error,
-    // isLoading,
-    // refetch,
+    error: articlesError,
+    isLoading: articlesIsLoading,
   } = useArticlesGetAllQuery();
 
-  console.log({ articles });
+  const {
+    data: topHeadlines,
+    error: topHeadlinesError,
+    isLoading: topHeadlinesIsLoading,
+  } = useTopHeadlinesGetAllQuery();
+
+  console.log({ topHeadlines, articles });
 
   return (
     <div className="">
-      <div className="">
-        main page to display top headlines and news articles
-      </div>
+      <ArticleCard data={articles} />
     </div>
   );
 };
