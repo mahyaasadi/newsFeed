@@ -20,11 +20,11 @@ const NewsFeed = () => {
     isFetching,
   } = useArticlesGetAllQuery(page);
 
-  const {
-    data: topHeadlines,
-    error: topHeadlinesError,
-    isLoading: topHeadlinesIsLoading,
-  } = useTopHeadlinesGetAllQuery();
+  // const {
+  //   data: topHeadlines,
+  //   error: topHeadlinesError,
+  //   isLoading: topHeadlinesIsLoading,
+  // } = useTopHeadlinesGetAllQuery();
 
   useEffect(() => {
     if (articles) {
