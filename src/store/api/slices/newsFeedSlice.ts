@@ -10,9 +10,10 @@ export const newsFeedSlice = createApi({
   tagTypes: ["articles"],
   reducerPath: "articles",
   endpoints: (builder) => ({
-    articlesGetAll: builder.query<ArticlesResponse, void>({
-      query: () => `everything?q=bitcoin&apiKey=${API_KEY}`,
-      providesTags: ["articles"],
+    articlesGetAll: builder.query<ArticlesResponse, number>({
+      query: (page) =>
+        `everything?q=bitcoin&apiKey=${API_KEY}&page=${page}&pageSize=20`,
+      providesTags: (result, error, page) => [{ type: "articles", id: page }],
     }),
     topHeadlinesGetAll: builder.query<ArticlesResponse, void>({
       query: () => `top-headlines?country=us&apiKey=${API_KEY}`,
