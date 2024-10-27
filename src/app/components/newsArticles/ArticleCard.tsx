@@ -1,3 +1,4 @@
+// ArticleCard
 import Link from "next/link";
 import { Article } from "@/app/types/type";
 import styles from "@/app/components/newsArticles/articleCard.module.scss";

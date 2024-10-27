@@ -1,3 +1,4 @@
+// Loader
 import styles from "@/app/components/shared/loader.module.scss";
 
 const Loader = () => {

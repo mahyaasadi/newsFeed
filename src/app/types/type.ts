@@ -1,4 +1,4 @@
-// types.ts
+// types
 export type Article = {
   source: {
     id: string | null;

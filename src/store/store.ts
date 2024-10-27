@@ -1,3 +1,4 @@
+// store
 import { configureStore } from "@reduxjs/toolkit";
 import * as slices from "@/store/api/slices";
 

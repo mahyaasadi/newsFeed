@@ -1,3 +1,4 @@
+// newsFeed page
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { Article } from "@/app/types/type";
@@ -20,11 +21,11 @@ const NewsFeed = () => {
     isFetching,
   } = useArticlesGetAllQuery(page);
 
-  // const {
-  //   data: topHeadlines,
-  //   error: topHeadlinesError,
-  //   isLoading: topHeadlinesIsLoading,
-  // } = useTopHeadlinesGetAllQuery();
+  const {
+    data: topHeadlines,
+    error: topHeadlinesError,
+    isLoading: topHeadlinesIsLoading,
+  } = useTopHeadlinesGetAllQuery();
 
   useEffect(() => {
     if (articles) {

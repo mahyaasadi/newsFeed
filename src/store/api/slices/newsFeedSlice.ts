@@ -1,3 +1,4 @@
+// newsFeedSlice
 import { ArticlesResponse } from "@/app/types/type";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
