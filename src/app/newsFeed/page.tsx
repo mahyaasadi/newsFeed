@@ -1,31 +1,34 @@
-// newsFeed page
 "use client";
+// react
 import { useCallback, useEffect, useState } from "react";
-import { Article } from "@/app/types/type";
-import Loader from "@/app/components/shared/Loader";
-import ArticleCard from "@/app/components/newsArticles/ArticleCard";
+// types
+import { Article } from "src/app/types/type";
+// components
+import Loader from "src/app/components/shared/Loader";
+import ArticleCard from "src/app/components/newsArticles/ArticleCard";
+// ApiSlices
 import {
-  useArticlesGetAllQuery,
-  useTopHeadlinesGetAllQuery,
-} from "@/store/api/slices/newsFeedSlice";
+  useGetAllArticlesQuery,
+  useGetAllTopHeadlinesQuery,
+} from "src/store/api/slices/newsFeedSlice";
 
 const NewsFeed = () => {
-  const [page, setPage] = useState<number>(1);
+  // States
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const [articlesList, setArticlesList] = useState(Array<Article>());
 
   // Fetching data
   const {
     data: articles,
-    error: articlesError,
     isLoading: articlesIsLoading,
     isFetching,
-  } = useArticlesGetAllQuery(page);
+  } = useGetAllArticlesQuery(pageNumber);
 
-  const {
-    data: topHeadlines,
-    error: topHeadlinesError,
-    isLoading: topHeadlinesIsLoading,
-  } = useTopHeadlinesGetAllQuery();
+  // const {
+  //   data: topHeadlines,
+  //   error: topHeadlinesError,
+  //   isLoading: topHeadlinesIsLoading,
+  // } = useGetAllTopHeadlinesQuery();
 
   useEffect(() => {
     if (articles) {
@@ -36,17 +39,6 @@ const NewsFeed = () => {
     }
   }, [articles]);
 
-  // Debounced scroll handler to optimize performance
-  const handleScroll = useCallback(() => {
-    const bottom =
-      window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - 200; // Adding a threshold before reaching the bottom
-
-    if (bottom && !articlesIsLoading && !isFetching) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  }, [articlesIsLoading, isFetching]);
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -54,14 +46,25 @@ const NewsFeed = () => {
     };
   }, []);
 
+  // Debounced scroll handler to optimize performance
+  const handleScroll = useCallback(() => {
+    const bottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 200; // Adding a threshold before reaching the bottom
+
+    if (bottom && !articlesIsLoading && !isFetching) {
+      setPageNumber((prevPage) => prevPage + 1);
+    }
+  }, [articlesIsLoading, isFetching]);
+
   return (
     <div>
-      {articlesIsLoading && page === 1 ? (
+      {articlesIsLoading && pageNumber === 1 ? (
         <Loader />
       ) : (
         <ArticleCard data={articlesList} />
       )}
-      {isFetching && page > 1 && <Loader />}
+      {isFetching && pageNumber > 1 && <Loader />}
     </div>
   );
 };

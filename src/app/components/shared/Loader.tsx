@@ -1,5 +1,5 @@
-// Loader
-import styles from "@/app/components/shared/loader.module.scss";
+// styles
+import styles from "src/app/components/shared/loader.module.scss";
 
 const Loader = () => {
   return (

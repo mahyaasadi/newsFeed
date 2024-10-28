@@ -1,7 +1,9 @@
-// ArticleCard
+// next
 import Link from "next/link";
-import { Article } from "@/app/types/type";
-import styles from "@/app/components/newsArticles/articleCard.module.scss";
+// types
+import { Article } from "src/app/types/type";
+// styles
+import styles from "src/app/components/newsArticles/articleCard.module.scss";
 
 type ArticleCardProps = {
   data?: Article[];
