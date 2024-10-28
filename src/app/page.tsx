@@ -7,10 +7,7 @@ import { ArticleItem } from "src/app/types/type";
 import Loader from "src/app/components/shared/Loader";
 import ArticleCard from "src/app/components/newsArticles/ArticleCard";
 // api slices
-import {
-  useGetAllArticlesQuery,
-  useGetAllTopHeadlinesQuery,
-} from "src/store/api/slices/newsFeedSlice";
+import { useGetAllArticlesQuery } from "src/store/api/slices/newsFeedSlice";
 
 const NewsFeed = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -22,12 +19,6 @@ const NewsFeed = () => {
     isLoading: articlesIsLoading,
     isFetching,
   } = useGetAllArticlesQuery(pageNumber);
-
-  // const {
-  //   data: topHeadlines,
-  //   error: topHeadlinesError,
-  //   isLoading: topHeadlinesIsLoading,
-  // } = useGetAllTopHeadlinesQuery();
 
   useEffect(() => {
     if (articles) {
@@ -49,12 +40,17 @@ const NewsFeed = () => {
     }
   }, [articlesIsLoading, isFetching]);
 
+  // Throttle scroll event to reduce load
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    const handleThrottledScroll = () => {
+      // Use requestAnimationFrame for smoother throttling
+      requestAnimationFrame(handleScroll);
     };
-  }, []);
+    window.addEventListener("scroll", handleThrottledScroll);
+    return () => {
+      window.removeEventListener("scroll", handleThrottledScroll);
+    };
+  }, [handleScroll]); // Only reattach if `handleScroll` changes
 
   return (
     <>
