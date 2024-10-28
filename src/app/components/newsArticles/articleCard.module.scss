@@ -1,6 +1,4 @@
-$breakpoint-sm: 576px;
-$breakpoint-lg: 992px;
-$breakpoint-xxl: 1400px;
+@import "src/app/styles/variables.scss";
 
 .articles_list {
   display: flex;

@@ -1,5 +1,4 @@
-$loader-bar-bg: darkcyan;
-$loader-bar-width: 2vmin;
+@import "src/app/styles/variables.scss";
 
 .loader_wrapper {
   display: flex;

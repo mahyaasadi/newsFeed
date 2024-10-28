@@ -57,14 +57,14 @@ const NewsFeed = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {articlesIsLoading && pageNumber === 1 ? (
         <Loader />
       ) : (
         <ArticleCard data={articlesList} />
       )}
       {isFetching && pageNumber > 1 && <Loader />}
-    </div>
+    </>
   );
 };
 
