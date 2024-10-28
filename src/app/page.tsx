@@ -46,6 +46,7 @@ const NewsFeed = () => {
       // Use requestAnimationFrame for smoother throttling
       requestAnimationFrame(handleScroll);
     };
+
     window.addEventListener("scroll", handleThrottledScroll);
     return () => {
       window.removeEventListener("scroll", handleThrottledScroll);
@@ -53,14 +54,14 @@ const NewsFeed = () => {
   }, [handleScroll]); // Only reattach if `handleScroll` changes
 
   return (
-    <>
+    <div>
       {articlesIsLoading && pageNumber === 1 ? (
         <Loader />
       ) : (
         <ArticleCard data={articlesList} />
       )}
       {isFetching && pageNumber > 1 && <Loader />}
-    </>
+    </div>
   );
 };
 

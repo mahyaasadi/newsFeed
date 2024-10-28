@@ -1,5 +1,6 @@
 // next
 import Link from "next/link";
+import Image from "next/image";
 // types
 import { ArticleItem } from "src/app/types/type";
 // styles
@@ -16,17 +17,20 @@ const ArticleCard = ({ data }: ArticleCardProps): JSX.Element => {
         <div className={styles.article_card} key={index}>
           <div className={styles.article_img_container}>
             {article.urlToImage ? (
-              <img
-                className={styles.article_img}
+              <Image
                 src={article.urlToImage ?? undefined}
                 alt="articleImg"
-              ></img>
+                layout="responsive"
+                width={10}
+                height={8}
+                className={styles.article_img}
+              />
             ) : (
               <div className={styles.default_article_img}></div>
             )}
 
             <div className={styles.article_link}>
-              <Link href="#" target="_blank">
+              <Link href={article.url} target="_blank">
                 Read more
               </Link>
             </div>
