@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // types
 import { ArticlesResponse } from "src/app/types/type";
-
-const API_KEY = "08b6e506c3e943308631df5429f4b011";
+// constants
+import { API_KEY } from "src/app/constants/apikey";
 
 export const newsFeedSlice = createApi({
   baseQuery: fetchBaseQuery({
