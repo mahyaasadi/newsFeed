@@ -1,4 +1,3 @@
-// layout
 "use client";
 import store from "src/store/store";
 import { Provider } from "react-redux";

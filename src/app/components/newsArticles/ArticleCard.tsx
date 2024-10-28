@@ -1,12 +1,12 @@
 // next
 import Link from "next/link";
 // types
-import { Article } from "src/app/types/type";
+import { ArticleItem } from "src/app/types/type";
 // styles
 import styles from "src/app/components/newsArticles/articleCard.module.scss";
 
 type ArticleCardProps = {
-  data?: Article[];
+  data?: ArticleItem[];
 };
 
 const ArticleCard = ({ data }: ArticleCardProps): JSX.Element => {
