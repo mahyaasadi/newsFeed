@@ -11,28 +11,28 @@ type ArticleCardProps = {
 
 const ArticleCard = ({ data }: ArticleCardProps): JSX.Element => {
   return (
-    <div className={styles.articlesList}>
+    <div className={styles.articles_list}>
       {data?.map((article, index) => (
-        <div className={styles.articleCard} key={index}>
-          <div className={styles.articleImgContainer}>
+        <div className={styles.article_card} key={index}>
+          <div className={styles.article_img_container}>
             {article.urlToImage ? (
               <img
-                className={styles.articleImg}
+                className={styles.article_img}
                 src={article.urlToImage ?? undefined}
                 alt="articleImg"
               ></img>
             ) : (
-              <div className={styles.defaultArticleImg}></div>
+              <div className={styles.default_article_img}></div>
             )}
 
-            <div className={styles.articleLink}>
+            <div className={styles.article_link}>
               <Link href="#" target="_blank">
                 Read more
               </Link>
             </div>
           </div>
 
-          <div className={styles.articleContent}>
+          <div className={styles.article_content}>
             <h5>{article.title}</h5>
             <p>{article.description}</p>
           </div>
