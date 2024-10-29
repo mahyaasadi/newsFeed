@@ -6,8 +6,12 @@ import { ArticleItem } from "src/app/types/type";
 // components
 import Loader from "src/app/components/shared/Loader";
 import ArticleCard from "src/app/components/newsArticles/ArticleCard";
+import HeadlinesSlider from "src/app/components/topHeadlines/HeadlinesSlider";
 // api slices
-import { useGetAllArticlesQuery } from "src/store/api/slices/newsFeedSlice";
+import {
+  useGetAllArticlesQuery,
+  useGetAllTopHeadlinesQuery,
+} from "src/store/api/slices/newsFeedSlice";
 
 const NewsFeed = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -19,6 +23,11 @@ const NewsFeed = () => {
     isLoading: articlesIsLoading,
     isFetching,
   } = useGetAllArticlesQuery(pageNumber);
+
+  const {
+    data: topHeadlines,
+    isLoading: headlinesIsLoading,
+  } = useGetAllTopHeadlinesQuery();
 
   useEffect(() => {
     if (articles) {
@@ -55,10 +64,13 @@ const NewsFeed = () => {
 
   return (
     <div>
-      {articlesIsLoading && pageNumber === 1 ? (
+      {articlesIsLoading || (headlinesIsLoading && pageNumber === 1) ? (
         <Loader />
       ) : (
-        <ArticleCard data={articlesList} />
+        <>
+          <HeadlinesSlider data={topHeadlines?.articles || []} />
+          <ArticleCard data={articlesList} />
+        </>
       )}
       {isFetching && pageNumber > 1 && <Loader />}
     </div>

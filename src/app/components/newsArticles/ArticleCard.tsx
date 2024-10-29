@@ -7,7 +7,7 @@ import { ArticleItem } from "src/app/types/type";
 import styles from "src/app/components/newsArticles/articleCard.module.scss";
 
 type ArticleCardProps = {
-  data?: ArticleItem[];
+  data?: ArticleItem[] | undefined;
 };
 
 const ArticleCard = ({ data }: ArticleCardProps): JSX.Element => {
