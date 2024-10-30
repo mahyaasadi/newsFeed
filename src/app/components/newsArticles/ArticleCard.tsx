@@ -1,35 +1,42 @@
+// next
 import Link from "next/link";
-import { Article } from "@/app/types/type";
-import styles from "@/app/components/newsArticles/articleCard.module.scss";
+import Image from "next/image";
+// types
+import { ArticleItem } from "src/app/types/type";
+// styles
+import styles from "src/app/components/newsArticles/articleCard.module.scss";
 
 type ArticleCardProps = {
-  data?: Article[];
+  data?: ArticleItem[];
 };
 
 const ArticleCard = ({ data }: ArticleCardProps): JSX.Element => {
   return (
-    <div className={styles.articlesList}>
+    <div className={styles.articles_list}>
       {data?.map((article, index) => (
-        <div className={styles.articleCard} key={index}>
-          <div className={styles.articleImgContainer}>
+        <div className={styles.article_card} key={index}>
+          <div className={styles.article_img_container}>
             {article.urlToImage ? (
-              <img
-                className={styles.articleImg}
+              <Image
                 src={article.urlToImage ?? undefined}
                 alt="articleImg"
-              ></img>
+                layout="responsive"
+                width={10}
+                height={8}
+                className={styles.article_img}
+              />
             ) : (
-              <div className={styles.defaultArticleImg}></div>
+              <div className={styles.default_article_img}></div>
             )}
 
-            <div className={styles.articleLink}>
-              <Link href="#" target="_blank">
+            <div className={styles.article_link}>
+              <Link href={article.url} target="_blank">
                 Read more
               </Link>
             </div>
           </div>
 
-          <div className={styles.articleContent}>
+          <div className={styles.article_content}>
             <h5>{article.title}</h5>
             <p>{article.description}</p>
           </div>

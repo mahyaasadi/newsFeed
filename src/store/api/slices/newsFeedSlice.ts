@@ -1,7 +1,8 @@
-import { ArticlesResponse } from "@/app/types/type";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-const API_KEY = "08b6e506c3e943308631df5429f4b011";
+// types
+import { ArticlesResponse } from "src/app/types/type";
+// constants
+import { API_KEY } from "src/app/constants/apikey";
 
 export const newsFeedSlice = createApi({
   baseQuery: fetchBaseQuery({
@@ -10,12 +11,14 @@ export const newsFeedSlice = createApi({
   tagTypes: ["articles"],
   reducerPath: "articles",
   endpoints: (builder) => ({
-    articlesGetAll: builder.query<ArticlesResponse, number>({
-      query: (page) =>
-        `everything?q=bitcoin&apiKey=${API_KEY}&page=${page}&pageSize=20`,
-      providesTags: (result, error, page) => [{ type: "articles", id: page }],
+    getAllArticles: builder.query<ArticlesResponse, number>({
+      query: (pageNumber) =>
+        `everything?q=bitcoin&apiKey=${API_KEY}&page=${pageNumber}&pageSize=20`,
+      providesTags: (result, error, pageNumber) => [
+        { type: "articles", id: pageNumber },
+      ],
     }),
-    topHeadlinesGetAll: builder.query<ArticlesResponse, void>({
+    getAllTopHeadlines: builder.query<ArticlesResponse, void>({
       query: () => `top-headlines?country=us&apiKey=${API_KEY}`,
       providesTags: ["articles"],
     }),
@@ -23,5 +26,5 @@ export const newsFeedSlice = createApi({
 });
 
 export const middleware = newsFeedSlice.middleware;
-export const { useArticlesGetAllQuery, useTopHeadlinesGetAllQuery } =
+export const { useGetAllArticlesQuery, useGetAllTopHeadlinesQuery } =
   newsFeedSlice;

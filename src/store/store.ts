@@ -1,5 +1,5 @@
+import * as slices from "src/store/api/slices";
 import { configureStore } from "@reduxjs/toolkit";
-import * as slices from "@/store/api/slices";
 
 const store = configureStore({
   reducer: {

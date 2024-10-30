@@ -1,7 +1,6 @@
-$loader-bar-bg: darkcyan;
-$loader-bar-width: 2vmin;
+@import "src/app/styles/variables.scss";
 
-.loaderWrapper {
+.loader_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;

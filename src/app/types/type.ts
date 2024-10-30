@@ -1,5 +1,4 @@
-// types.ts
-export type Article = {
+export type ArticleItem = {
   source: {
     id: string | null;
     name: string;
@@ -16,5 +15,5 @@ export type Article = {
 export type ArticlesResponse = {
   status: string;
   totalResults: number;
-  articles: Article[];
+  articles: ArticleItem[];
 };
