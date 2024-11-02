@@ -1,0 +1,47 @@
+@mixin boxShadowTransition($duration: 0.3s, $ease: ease) {
+  transition: box-shadow #{$duration} #{$ease};
+}
+
+@mixin transition($property: all, $duration: 0.3s, $ease: ease) {
+  transition: #{$property} #{$duration} #{$ease};
+}
+
+@mixin visibilityOpacityTransition(
+  $duration: 0.25s,
+  $opacityEase: ease,
+  $visibilityEase: 0s
+) {
+  transition: visibility #{$visibilityEase},
+    opacity #{$duration} #{$opacityEase};
+}
+
+@mixin opacityTranisition($duration: 0.25s, $ease: ease) {
+  transition: opacity #{$duration} #{$ease};
+}
+
+@mixin visibilityTranisition($duration: 0.25s, $ease: ease) {
+  transition: visibility #{$duration} #{$ease};
+}
+
+@mixin spinAnimation($duration: 0.5s) {
+  animation: spin #{$duration} linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@mixin ldsRingAnimation($duration: 0.5s) {
+  animation: lds-ring #{$duration};
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

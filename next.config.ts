@@ -1,16 +1,20 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  // reactStrictMode: false,
   distDir: "build",
   eslint: {
     ignoreDuringBuilds: true,
   },
   images: {
+    // This allows any host with HTTPS and HTTP protocol
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**", // This allows any host with HTTPS protocol
+        hostname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "**",
       },
     ],
   },
