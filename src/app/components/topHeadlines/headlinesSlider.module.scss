@@ -1,10 +1,12 @@
+@import "src/app/styles/variables.scss";
+
 .slider_container {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: 75rem;
   margin: auto;
   overflow: hidden;
 
@@ -21,12 +23,12 @@
       transition: transform 0.5s ease;
 
       .card {
-        min-width: 200px;
+        min-width: 12rem;
         flex: 1 1 20%;
-        max-width: 220px;
+        max-width: 15rem;
         padding: 0.15rem 1rem;
-        border-radius: 8px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 0.5rem;
+        box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
         background-color: #ffffff;
         display: flex;
         flex-direction: column;
@@ -52,7 +54,7 @@
   .next_button {
     background: none;
     border: none;
-    font-size: 50px;
+    font-size: $font-size-large;
     cursor: pointer;
     color: gray;
 
@@ -64,11 +66,11 @@
 
   .prev_button {
     position: absolute;
-    left: 0;
+    left: -0.5rem;
   }
 
   .next_button {
     position: absolute;
-    right: 0;
+    right: -0.5rem;
   }
 }
