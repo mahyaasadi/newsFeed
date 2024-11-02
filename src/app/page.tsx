@@ -24,10 +24,8 @@ const NewsFeed = () => {
     isFetching,
   } = useGetAllArticlesQuery(pageNumber);
 
-  const {
-    data: topHeadlines,
-    isLoading: headlinesIsLoading,
-  } = useGetAllTopHeadlinesQuery();
+  const { data: topHeadlines, isLoading: headlinesIsLoading } =
+    useGetAllTopHeadlinesQuery();
 
   useEffect(() => {
     if (articles) {
@@ -64,11 +62,11 @@ const NewsFeed = () => {
 
   return (
     <div>
-      {articlesIsLoading || (headlinesIsLoading && pageNumber === 1) ? (
+      {(articlesIsLoading || headlinesIsLoading) && pageNumber === 1 ? (
         <Loader />
       ) : (
         <>
-          <HeadlinesSlider data={topHeadlines?.articles || []} />
+          <HeadlinesSlider />
           <ArticleCard data={articlesList} />
         </>
       )}

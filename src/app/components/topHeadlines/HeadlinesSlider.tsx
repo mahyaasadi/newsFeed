@@ -2,30 +2,32 @@
 import { useState } from "react";
 // next
 import Link from "next/link";
-// types
-import { ArticleItem } from "src/app/types/type";
 // styles
 import styles from "src/app/components/topHeadlines/headlinesSlider.module.scss";
+// api slice
+import { useGetAllTopHeadlinesQuery } from "src/store/api/slices/newsFeedSlice";
 
-type HeadlineProps = {
-  data: ArticleItem[];
-};
-
-const HeadlinesSlider = ({ data }: HeadlineProps): JSX.Element => {
+const HeadlinesSlider = (): JSX.Element => {
   // states
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const cardsPerPage = 5;
 
+  // fetching headlines
+  const { data: topHeadlines } = useGetAllTopHeadlinesQuery();
+  const headlines = topHeadlines?.articles || [];
+
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex + cardsPerPage >= data.length ? 0 : prevIndex + cardsPerPage
+      prevIndex + cardsPerPage >= headlines.length
+        ? 0
+        : prevIndex + cardsPerPage
     );
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex - cardsPerPage < 0
-        ? data.length - cardsPerPage
+        ? headlines.length - cardsPerPage
         : prevIndex - cardsPerPage
     );
   };
@@ -38,7 +40,8 @@ const HeadlinesSlider = ({ data }: HeadlineProps): JSX.Element => {
 
       <div className={styles.card_wrapper}>
         <div className={styles.card_container}>
-          {data?.slice(currentIndex, currentIndex + cardsPerPage)
+          {headlines
+            ?.slice(currentIndex, currentIndex + cardsPerPage)
             .map((headline, index) => (
               <Link
                 href={headline.url}
