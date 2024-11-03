@@ -9,11 +9,13 @@ import styles from "src/app/page.module.scss";
 import { useDebounce } from "src/app/components/searchBar/useDebounce";
 // components
 import Loader from "src/app/components/shared/Loader";
-import ArticleCard from "src/app/components/newsArticles/ArticleCard";
 import SearchBar from "src/app/components/searchBar/SearchBar";
+import ArticleCard from "src/app/components/newsArticles/ArticleCard";
+import HeadlinesSlider from "src/app/components/topHeadlines/HeadlinesSlider";
 // api slices
 import {
   useGetAllArticlesQuery,
+  useGetAllTopHeadlinesQuery,
   useSearchOnArticlesMutation,
 } from "src/store/api/slices/newsFeedSlice";
 
@@ -54,6 +56,9 @@ const NewsFeed = () => {
   // Search on articles
   const [searchOnArticles, { isLoading: isSearching }] =
     useSearchOnArticlesMutation();
+
+  const { data: topHeadlines, isLoading: headlinesIsLoading } =
+    useGetAllTopHeadlinesQuery();
 
   useEffect(() => {
     if (articles) {
@@ -124,7 +129,7 @@ const NewsFeed = () => {
 
   return (
     <>
-      {articlesIsLoading && pageNumber === 1 ? (
+      {(articlesIsLoading || headlinesIsLoading) && pageNumber === 1 ? (
         <Loader />
       ) : (
         <>
@@ -133,14 +138,21 @@ const NewsFeed = () => {
             suggestions={suggestions}
             isSearching={isSearching}
           />
+
           {noResultsMessage ? (
             <div className={styles.no_results_message}>{noResultsMessage}</div>
           ) : (
-            articles && <ArticleCard data={filteredArticles || articlesList} />
+            articles && (
+              <>
+                <HeadlinesSlider />
+                <ArticleCard data={filteredArticles || articlesList} />
+              </>
+            )
           )}
+
+          {isFetching && pageNumber > 1 && <Loader />}
         </>
       )}
-      {isFetching && pageNumber > 1 && <Loader />}
     </>
   );
 };

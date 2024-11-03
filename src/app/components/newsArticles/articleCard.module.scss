@@ -5,7 +5,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 4rem;
 
   .article_card {
     width: 100%;
@@ -60,7 +60,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 1rem;
+        font-size: $font-size-small;
         font-weight: 700;
         border: 0.06rem solid #ced6db;
         border-radius: 0.25rem;
@@ -74,7 +74,7 @@
 
         a {
           color: darkblue;
-          font-size: 0.95rem;
+          font-size: $font-size-small;
           text-decoration: none;
         }
       }
@@ -100,7 +100,7 @@
       @include opacityTranisition(0.3s, ease);
 
       h5 {
-        font-size: 1.25rem;
+        font-size: $font-size-normal;
         margin-bottom: 0.75rem;
       }
 
