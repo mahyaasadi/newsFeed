@@ -20,7 +20,6 @@ import {
 const NewsFeed = () => {
   // states
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [articlesList, setArticlesList] = useState(Array<ArticleItem>());
   const [filteredArticles, setFilteredArticles] = useState<
     ArticleItem[] | null
   >(null);
@@ -47,18 +46,23 @@ const NewsFeed = () => {
     isFetching,
   } = useGetAllArticlesQuery(pageNumber);
 
+  // Articles state
+  const [articlesList, setArticlesList] = useState<ArticleItem[]>(
+    articles?.articles || []
+  );
+
   // Search on articles
   const [searchOnArticles, { isLoading: isSearching }] =
     useSearchOnArticlesMutation();
 
   useEffect(() => {
-    if (articles && !filteredArticles) {
+    if (articles) {
       setArticlesList((prevArticles) => [
         ...prevArticles,
         ...articles.articles,
       ]);
     }
-  }, [articles, filteredArticles]);
+  }, [articles]);
 
   // Trigger search when debounced values changes and also title exists
   useEffect(() => {
@@ -132,7 +136,7 @@ const NewsFeed = () => {
           {noResultsMessage ? (
             <div className={styles.no_results_message}>{noResultsMessage}</div>
           ) : (
-            <ArticleCard data={filteredArticles || articlesList} />
+            articles && <ArticleCard data={filteredArticles || articlesList} />
           )}
         </>
       )}
