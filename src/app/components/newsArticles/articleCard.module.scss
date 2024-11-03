@@ -92,12 +92,12 @@
 
     &:hover .article_content {
       opacity: 0.2;
-      @include opacityTranisition(0.3s, ease);
+      @include opacityTransition(0.3s, ease);
     }
 
     .article_content {
       margin-top: 0.75rem;
-      @include opacityTranisition(0.3s, ease);
+      @include opacityTransition(0.3s, ease);
 
       h5 {
         font-size: $font-size-normal;

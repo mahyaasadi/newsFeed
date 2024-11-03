@@ -15,12 +15,20 @@
     opacity #{$duration} #{$opacityEase};
 }
 
-@mixin opacityTranisition($duration: 0.25s, $ease: ease) {
+@mixin opacityTransition($duration: 0.25s, $ease: ease) {
   transition: opacity #{$duration} #{$ease};
 }
 
-@mixin visibilityTranisition($duration: 0.25s, $ease: ease) {
+@mixin visibilityTransition($duration: 0.25s, $ease: ease) {
   transition: visibility #{$duration} #{$ease};
+}
+
+@mixin backgroundTransition($duration: 0.25s) {
+  transition: background-color #{$duration};
+}
+
+@mixin transformTransition($duration: 0.25s, $ease: ease) {
+  transition: transform #{$duration} #{$ease};
 }
 
 @mixin spinAnimation($duration: 0.5s) {

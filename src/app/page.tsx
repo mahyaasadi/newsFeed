@@ -1,10 +1,12 @@
 "use client";
 // react
 import { useCallback, useEffect, useState } from "react";
-// types
-import { ArticleItem } from "src/app/types/type";
+// next
+import { useRouter } from "next/navigation";
 // styles
 import styles from "src/app/page.module.scss";
+// types
+import { ArticleItem } from "src/app/types/type";
 // hooks
 import { useDebounce } from "src/app/components/searchBar/useDebounce";
 // components
@@ -12,14 +14,16 @@ import Loader from "src/app/components/shared/Loader";
 import SearchBar from "src/app/components/searchBar/SearchBar";
 import ArticleCard from "src/app/components/newsArticles/ArticleCard";
 import HeadlinesSlider from "src/app/components/topHeadlines/HeadlinesSlider";
-// api slices
+// api slice
 import {
   useGetAllArticlesQuery,
   useGetAllTopHeadlinesQuery,
   useSearchOnArticlesMutation,
 } from "src/store/api/slices/newsFeedSlice";
 
-const NewsFeed = () => {
+const NewsFeed = (): JSX.Element => {
+  const router = useRouter();
+
   // states
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [filteredArticles, setFilteredArticles] = useState<
@@ -45,6 +49,7 @@ const NewsFeed = () => {
   const {
     data: articles,
     isLoading: articlesIsLoading,
+    error: articlesError,
     isFetching,
   } = useGetAllArticlesQuery(pageNumber);
 
@@ -54,11 +59,14 @@ const NewsFeed = () => {
   );
 
   // Search on articles
-  const [searchOnArticles, { isLoading: isSearching }] =
+  const [searchOnArticles, { isLoading: isSearching, error: searchError }] =
     useSearchOnArticlesMutation();
 
-  const { data: topHeadlines, isLoading: headlinesIsLoading } =
-    useGetAllTopHeadlinesQuery();
+  const {
+    data: topHeadlines,
+    isLoading: headlinesIsLoading,
+    error: topHeadlinesError,
+  } = useGetAllTopHeadlinesQuery();
 
   useEffect(() => {
     if (articles) {
@@ -68,6 +76,19 @@ const NewsFeed = () => {
       ]);
     }
   }, [articles]);
+
+  useEffect(() => {
+    if (articlesError || topHeadlinesError) {
+      const errStatus =
+        (articlesError && "status" in articlesError && articlesError.status) ||
+        (topHeadlinesError &&
+          "status" in topHeadlinesError &&
+          topHeadlinesError.status);
+
+      const statusCode = errStatus?.toString() || "500";
+      router.push(`/error/${statusCode}`);
+    }
+  }, [articlesError, topHeadlinesError, router]);
 
   // Trigger search when debounced values changes and also title exists
   useEffect(() => {
@@ -84,19 +105,15 @@ const NewsFeed = () => {
         return;
       }
 
-      try {
-        const result = await searchOnArticles(values).unwrap();
-        setSuggestions(result.articles?.slice(0, 5));
-        setFilteredArticles(result.articles);
+      const result = await searchOnArticles(values).unwrap();
+      setSuggestions(result.articles?.slice(0, 5));
+      setFilteredArticles(result.articles);
 
-        // Set no results message if the result is empty
-        if (result.articles.length === 0) {
-          setNoResultsMessage(`No results for "${values.title}" were found`);
-        } else {
-          setNoResultsMessage(null);
-        }
-      } catch (error) {
-        // console.error("Search failed:", error);
+      // Set no results message if the result is empty
+      if (result.articles.length === 0) {
+        setNoResultsMessage(`No results for "${values.title}" were found`);
+      } else {
+        setNoResultsMessage(null);
       }
     };
 
@@ -117,7 +134,7 @@ const NewsFeed = () => {
   // Throttle scroll event to reduce load
   useEffect(() => {
     const handleThrottledScroll = () => {
-      // Use requestAnimationFrame for smoother throttling
+      // for smoother throttling
       requestAnimationFrame(handleScroll);
     };
 
@@ -141,6 +158,10 @@ const NewsFeed = () => {
 
           {noResultsMessage ? (
             <div className={styles.no_results_message}>{noResultsMessage}</div>
+          ) : searchError ? (
+            <div className={styles.no_results_message}>
+              an error occurred while searching
+            </div>
           ) : (
             articles && (
               <>
