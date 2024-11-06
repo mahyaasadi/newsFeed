@@ -1,0 +1,55 @@
+@mixin boxShadowTransition($duration: 0.3s, $ease: ease) {
+  transition: box-shadow #{$duration} #{$ease};
+}
+
+@mixin transition($property: all, $duration: 0.3s, $ease: ease) {
+  transition: #{$property} #{$duration} #{$ease};
+}
+
+@mixin visibilityOpacityTransition(
+  $duration: 0.25s,
+  $opacityEase: ease,
+  $visibilityEase: 0s
+) {
+  transition: visibility #{$visibilityEase},
+    opacity #{$duration} #{$opacityEase};
+}
+
+@mixin opacityTransition($duration: 0.25s, $ease: ease) {
+  transition: opacity #{$duration} #{$ease};
+}
+
+@mixin visibilityTransition($duration: 0.25s, $ease: ease) {
+  transition: visibility #{$duration} #{$ease};
+}
+
+@mixin backgroundTransition($duration: 0.25s) {
+  transition: background-color #{$duration};
+}
+
+@mixin transformTransition($duration: 0.25s, $ease: ease) {
+  transition: transform #{$duration} #{$ease};
+}
+
+@mixin spinAnimation($duration: 0.5s) {
+  animation: spin #{$duration} linear infinite;
+}
+
+@mixin searchLoaderSpinAnimation($duration: 0.5s) {
+  animation: searchLoaderSpin #{$duration} linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes searchLoaderSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,4 +1,5 @@
 @import "src/app/styles/variables.scss";
+@import "src/app/styles/animations.scss";
 
 .articles_list {
   display: flex;
@@ -17,7 +18,7 @@
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     padding: 1rem;
     overflow: hidden;
-    transition: all 0.3s ease;
+    @include boxShadowTransition(0.3s, ease);
 
     @media (min-width: $breakpoint-sm) {
       width: 50%;
@@ -32,6 +33,8 @@
     }
 
     .article_img_container {
+      min-height: 8rem;
+
       img {
         width: 100%;
         object-fit: cover;
@@ -67,7 +70,7 @@
         width: 60%;
         background-color: #ced6db;
         opacity: 0;
-        transition: visibility 0s, opacity 0.25s ease;
+        @include visibilityOpacityTransition(0.25s, ease, 0s);
 
         a {
           color: darkblue;
@@ -79,7 +82,7 @@
 
     &:hover {
       transform: scale(1.001) translateY(-0.75rem);
-      transition: ease-in-out all 0.5s;
+      @include transition(all, 0.5s, ease-in-out);
     }
 
     &:hover .article_link {
@@ -89,12 +92,13 @@
 
     &:hover .article_content {
       opacity: 0.2;
-      transition: opacity 0.3s ease;
+      @include opacityTransition(0.3s, ease);
     }
 
     .article_content {
       margin-top: 0.75rem;
-      transition: opacity 0.3s ease;
+      @include opacityTransition(0.3s, ease);
+
       h5 {
         font-size: $font-size-normal;
         margin-bottom: 0.75rem;
