@@ -79,12 +79,7 @@ const SearchBar = ({ onSearch, suggestions, isSearching }: SearchBarProps) => {
             {!isSearching ? (
               <span className={styles.search_icon}>🔍</span>
             ) : (
-              <div className={styles.lds_ring}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <div className={styles.search_loader}></div>
             )}
           </div>
 

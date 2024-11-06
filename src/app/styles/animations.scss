@@ -35,17 +35,17 @@
   animation: spin #{$duration} linear infinite;
 }
 
+@mixin searchLoaderSpinAnimation($duration: 0.5s) {
+  animation: searchLoaderSpin #{$duration} linear infinite;
+}
+
 @keyframes spin {
   to {
     transform: rotate(1turn);
   }
 }
 
-@mixin ldsRingAnimation($duration: 0.5s) {
-  animation: lds-ring #{$duration};
-}
-
-@keyframes lds-ring {
+@keyframes searchLoaderSpin {
   0% {
     transform: rotate(0deg);
   }

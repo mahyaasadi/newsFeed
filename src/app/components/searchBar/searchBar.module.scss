@@ -50,38 +50,22 @@
           pointer-events: none;
         }
 
-        .lds_ring {
+        .search_loader {
+          border: 2px solid #f3f3f3;
+          border-top: 2px solid #858585;
+          border-radius: 50%;
+          width: 16px;
+          height: 16px;
+          animation: spin 1s linear infinite;
           position: absolute;
-          right: 1.95rem;
+          right: 0.75rem;
           top: 23%;
           transform: translateY(-50%);
-          font-size: $font-size-small;
+          font-size: 1rem;
           color: #a3a3a3;
           pointer-events: none;
           display: flex;
-
-          div {
-            box-sizing: border-box;
-            display: block;
-            position: absolute;
-            width: 1rem;
-            height: 1rem;
-            margin: 0.2rem;
-            border: 0.13rem solid #a3a3a3;
-            border-radius: 50%;
-            border-color: #a3a3a3 transparent transparent transparent;
-            @include ldsRingAnimation(1.2s);
-          }
-
-          div:nth-child(1) {
-            animation-delay: -0.45s;
-          }
-          div:nth-child(2) {
-            animation-delay: -0.3s;
-          }
-          div:nth-child(3) {
-            animation-delay: -0.15s;
-          }
+          @include searchLoaderSpinAnimation(1s);
         }
       }
 
